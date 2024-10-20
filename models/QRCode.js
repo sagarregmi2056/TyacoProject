@@ -1,3 +1,4 @@
+// models/qr.js
 const mongoose = require("mongoose");
 
 const qrCodeSchema = new mongoose.Schema(
@@ -6,40 +7,84 @@ const qrCodeSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    details: {
-      type: String,
-      required: function () {
-        return this.sensitivity !== "high"; // Only require if sensitivity is not high
-      },
-    },
-    qrCodeUrl: {
-      type: String, // URL for the QR code image.
-    },
-    trackingId: {
-      type: String, // Tracking ID for the order
-      required: true,
-      unique: true, // Ensure tracking IDs are unique
-    },
-    orderId: {
-      type: String, // Order ID for the order
-      required: true,
-      unique: true, // Ensure order IDs are unique
-    },
     itemsName: {
       type: String,
-      required: true, // This can be made required based on your business logic
+      required: true,
+    },
+
+    qrCodeUrl: {
+      type: String, // This can be used later if you want to store a URL for the QR code image.
+    },
+    trackingId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    orderId: {
+      type: String,
+      required: true,
+      unique: true,
     },
     sensitivity: {
       type: String,
-      enum: ["high", "medium", "low"],
+      enum: ["low", "medium", "high"],
       required: true,
     },
-    createdAt: {
+
+    plantDate: {
       type: Date,
-      default: Date.now,
+    },
+    cost: {
+      type: Number,
+    },
+    // Nested fields for PickArea and Item
+    PickArea: {
+      PickAreaNr: {
+        type: Number,
+        required: true,
+        unique: true,
+      },
+      PickAreaName: {
+        type: String,
+        required: true,
+      },
+    },
+    Item: {
+      ItemNumber: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      ItemDescription: {
+        type: String,
+        required: true,
+      },
+      PickAreaNr: {
+        type: Number,
+        required: true,
+      },
+      UOM: {
+        type: String,
+        required: true,
+      },
+      SmallText: {
+        type: String,
+      },
+    },
+    Order: {
+      OrderNr: {
+        type: Number,
+        required: true,
+        unique: true,
+      },
+      Quantity: {
+        type: Number,
+        required: true,
+      },
     },
   },
-  { timestamps: true }
+  { timestamps: true } // Automatically add createdAt and updatedAt fields
 );
 
+// Export the QRCode model
 module.exports = mongoose.model("QRCode", qrCodeSchema);
