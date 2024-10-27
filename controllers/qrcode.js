@@ -95,7 +95,7 @@ exports.generateQRCode = async (req, res) => {
       itemsName,
       trackingId,
       orderId,
-      qrCodeUrl: `/qrcodes/qrcode_${Date.now()}.png`, // URL path for the QR code
+      qrCodeUrl: `http://192.168.1.6:8525/uploads/qrcode_${Date.now()}.png`,
       sensitivity,
       PickArea, // Include the nested PickArea object
       Item, // Include the nested Item object
@@ -110,9 +110,7 @@ exports.generateQRCode = async (req, res) => {
     }
 
     // Format the QR code content as a string with key-value pairs
-    const formattedContent = Object.entries(qrCodeContent)
-      .map(([key, value]) => `${key}: ${JSON.stringify(value)}`) // Stringify nested objects
-      .join("\n");
+    const formattedContent = JSON.stringify(qrCodeContent);
 
     // Generate the QR code and save it to a file
     const qrCodeFileName = `qrcode_${Date.now()}.png`;
@@ -151,7 +149,7 @@ exports.generateQRCode = async (req, res) => {
       numberOfPackets, // Number of packets
       itemsName, // Name of the items
       // Details based on sensitivity
-      qrCodeUrl: qrCodeFileName, // QR code file name
+      qrCodeUrl: `http://10.0.2.2:8525/uploads/${qrCodeFileName}`, // QR code file name
       trackingId, // Tracking ID from frontend
       orderId, // Order ID from frontend
       sensitivity, // Sensitivity level
@@ -312,5 +310,33 @@ exports.updateQRCode = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error updating QR Code", error });
+  }
+};
+
+exports.searchItemByItemNumber = async (req, res) => {
+  try {
+    const { ItemNumber } = req.query; // Get ItemNumber from query parameters
+
+    if (!ItemNumber) {
+      return res.status(400).json({ message: "ItemNumber is required" });
+    }
+
+    // Find the item in the database by ItemNumber
+    const qrCode = await QRCodeModel.findOne({ "Item.ItemNumber": ItemNumber });
+
+    if (!qrCode) {
+      return res
+        .status(404)
+        .json({ message: "Item not found with this ItemNumber" });
+    }
+
+    // Return the found item
+    res.status(200).json({
+      message: "Item found",
+      qrCode,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error searching for the item", error });
   }
 };

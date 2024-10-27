@@ -104,3 +104,20 @@ exports.signin = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+exports.requireUserSignin = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (token) {
+    const user = parseToken(token);
+
+    const founduser = await User.findById(user._id).select("name");
+
+    if (founduser) {
+      req.userauth = founduser;
+      next();
+    } else res.status(401).json({ error: "Not authorized!" });
+  } else {
+    res.status(401).json({ error: "Not authorized" });
+  }
+};

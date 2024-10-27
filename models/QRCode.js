@@ -42,7 +42,6 @@ const qrCodeSchema = new mongoose.Schema(
       PickAreaNr: {
         type: Number,
         required: true,
-        unique: true,
       },
       PickAreaName: {
         type: String,
@@ -75,7 +74,6 @@ const qrCodeSchema = new mongoose.Schema(
       OrderNr: {
         type: Number,
         required: true,
-        unique: true,
       },
       Quantity: {
         type: Number,

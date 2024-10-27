@@ -14,12 +14,13 @@ const logger = require("./helpers/logger");
 const { connectToDatabase } = require("./helpers/dbConnection");
 
 connectToDatabase();
+const createAdminUser = require("./helpers/admin");
 
 logger(app);
 app.use(cors());
 app.use(express.json());
 // app.use(expressValidator());
-app.use(express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
@@ -29,7 +30,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth-user", require("./routes/auth-user"));
 app.use("/api/qrcode", require("./routes/qrcode"));
-
+app.use("/api/admin", require("./routes/Admin"));
+createAdminUser();
 async function startServer() {
   app.listen(port, () => {
     console.log(
