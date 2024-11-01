@@ -11,33 +11,15 @@ const qrCodeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
     qrCodeUrl: {
-      type: String, // This can be used later if you want to store a URL for the QR code image.
-    },
-    trackingId: {
       type: String,
-      required: true,
-      unique: true,
     },
-    orderId: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    sensitivity: {
-      type: String,
-      enum: ["low", "medium", "high"],
-      required: true,
-    },
-
     plantDate: {
       type: Date,
     },
     cost: {
       type: Number,
     },
-    // Nested fields for PickArea and Item
     PickArea: {
       PickAreaNr: {
         type: Number,
@@ -48,28 +30,29 @@ const qrCodeSchema = new mongoose.Schema(
         required: true,
       },
     },
-    Item: {
-      ItemNumber: {
-        type: String,
-        required: true,
-        unique: true,
+    Items: [
+      {
+        ItemNumber: {
+          type: String,
+          required: true,
+        },
+        ItemDescription: {
+          type: String,
+          required: true,
+        },
+        PickAreaNr: {
+          type: Number,
+          required: true,
+        },
+        UOM: {
+          type: String,
+          required: true,
+        },
+        SmallText: {
+          type: String,
+        },
       },
-      ItemDescription: {
-        type: String,
-        required: true,
-      },
-      PickAreaNr: {
-        type: Number,
-        required: true,
-      },
-      UOM: {
-        type: String,
-        required: true,
-      },
-      SmallText: {
-        type: String,
-      },
-    },
+    ],
     Order: {
       OrderNr: {
         type: Number,
@@ -81,8 +64,7 @@ const qrCodeSchema = new mongoose.Schema(
       },
     },
   },
-  { timestamps: true } // Automatically add createdAt and updatedAt fields
+  { timestamps: true }
 );
 
-// Export the QRCode model
 module.exports = mongoose.model("QRCode", qrCodeSchema);
