@@ -100,7 +100,7 @@ exports.generateQRCode = async (req, res) => {
       numberOfPackets,
       itemsName,
       cost,
-      qrCodeUrl: `https://tyacoproject.onrender.com/uploads/qrcode_${Date.now()}.png`,
+      qrCodeUrl: `https://tyacoproject.onrender.com/uploads/${Date.now()}.png`,
       PickArea,
       Items, // Include all items as an array
       Order,
@@ -145,7 +145,7 @@ exports.generateQRCode = async (req, res) => {
     const qrCode = new QRCodeModel({
       numberOfPackets,
       itemsName,
-      qrCodeUrl: `https://tyacoproject.onrender.com/uploads/${qrCodeFileName}`,
+      qrCodeUrl: `/uploads/${qrCodeFileName}`,
       plantDate,
       cost,
       PickArea,
