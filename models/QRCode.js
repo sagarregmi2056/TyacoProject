@@ -36,17 +36,17 @@ const qrCodeSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
+        ItemName: String,
+        Packets: Number,
         ItemDescription: {
           type: String,
           required: true,
         },
         PickAreaNr: {
           type: Number,
-          required: true,
         },
         UOM: {
           type: String,
-          required: true,
         },
         SmallText: {
           type: String,
