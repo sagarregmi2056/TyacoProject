@@ -5,11 +5,9 @@ const qrCodeSchema = new mongoose.Schema(
   {
     numberOfPackets: {
       type: Number,
-      required: true,
     },
     itemsName: {
       type: String,
-      required: true,
     },
     qrCodeUrl: {
       type: String,
@@ -17,17 +15,13 @@ const qrCodeSchema = new mongoose.Schema(
     plantDate: {
       type: Date,
     },
-    cost: {
-      type: Number,
-    },
+
     PickArea: {
       PickAreaNr: {
         type: Number,
-        required: true,
       },
       PickAreaName: {
         type: String,
-        required: true,
       },
     },
     Items: [
@@ -42,8 +36,9 @@ const qrCodeSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
+        plantDate: String,
         PickAreaNr: {
-          type: Number,
+          type: string,
         },
         UOM: {
           type: String,

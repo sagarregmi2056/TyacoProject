@@ -97,12 +97,7 @@ exports.generateQRCode = async (req, res) => {
 
     // Prepare the QR code content
     const qrCodeContent = {
-      numberOfPackets,
-      itemsName,
-      cost,
-      qrCodeUrl: `https://tyacoproject-production.up.railway.app/uploads/${Date.now()}.png`,
-      PickArea,
-      Items, // Include all items as an array
+      // Include all items as an array
       Order,
     };
 
