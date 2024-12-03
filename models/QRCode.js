@@ -10,6 +10,10 @@ const qrCodeSchema = new mongoose.Schema(
       },
     },
 
+    qrCodeUrl: {
+      type: String,
+    },
+
     Items: [
       {
         ItemNumber: {
