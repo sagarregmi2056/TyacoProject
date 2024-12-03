@@ -28,7 +28,7 @@ const qrCodeSchema = new mongoose.Schema(
         },
         plantDate: String,
         PickAreaNr: {
-          type: string,
+          type: String,
         },
         UOM: {
           type: String,
