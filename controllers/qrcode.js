@@ -77,11 +77,6 @@ const logoPath = path.join(__dirname, "..", "uploads", "logo.png");
 exports.generateQRCode = async (req, res) => {
   try {
     const {
-      numberOfPackets,
-      itemsName,
-      plantDate,
-      cost,
-      PickArea,
       Items, // Array of items from the frontend
       Order,
     } = req.body;
@@ -138,12 +133,8 @@ exports.generateQRCode = async (req, res) => {
 
     // Save to the database
     const qrCode = new QRCodeModel({
-      numberOfPackets,
-      itemsName,
       qrCodeUrl: `/uploads/${qrCodeFileName}`,
-      plantDate,
-      cost,
-      PickArea,
+
       Items,
       Order,
     });

@@ -3,27 +3,13 @@ const mongoose = require("mongoose");
 
 const qrCodeSchema = new mongoose.Schema(
   {
-    numberOfPackets: {
-      type: Number,
-    },
-    itemsName: {
-      type: String,
-    },
-    qrCodeUrl: {
-      type: String,
-    },
-    plantDate: {
-      type: Date,
+    Order: {
+      OrderNr: {
+        type: Number,
+        required: true,
+      },
     },
 
-    PickArea: {
-      PickAreaNr: {
-        type: Number,
-      },
-      PickAreaName: {
-        type: String,
-      },
-    },
     Items: [
       {
         ItemNumber: {
@@ -48,16 +34,6 @@ const qrCodeSchema = new mongoose.Schema(
         },
       },
     ],
-    Order: {
-      OrderNr: {
-        type: Number,
-        required: true,
-      },
-      Quantity: {
-        type: Number,
-        required: true,
-      },
-    },
   },
   { timestamps: true }
 );
