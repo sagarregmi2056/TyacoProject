@@ -94,6 +94,7 @@ exports.generateQRCode = async (req, res) => {
     const qrCodeContent = {
       // Include all items as an array
       Order,
+      Items,
     };
 
     // Format the QR code content as a string with key-value pairs
